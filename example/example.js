@@ -30,8 +30,8 @@ let map = new EasyGoogleMaps({
 						"lng": 150.644
 					},
 					"icon": {
-						"default": "/img/markerDefault.png",
-						"active": "/img/markerActive.png",
+						"default": "img/markerDefault.png",
+						"active": "img/markerActive.png",
 						"size": {
 							"x": 20,
 							"y": 30
@@ -53,8 +53,8 @@ let map = new EasyGoogleMaps({
 						"lng": 150.644
 					},
 					"icon": {
-						"default": "/img/markerDefault.png",
-						"active": "/img/markerActive.png",
+						"default": "img/markerDefault.png",
+						"active": "img/markerActive.png",
 						"size": {
 							"x": 20,
 							"y": 30

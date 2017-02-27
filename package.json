@@ -1,7 +1,7 @@
 {
   "name": "easygooglemaps",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple layer over Google Maps API for creating maps with markers and controlled balloons.",
   "main": "dist/easygooglemaps.js",
   "scripts": {
     "precommit": "npm run build",
@@ -15,7 +15,14 @@
     "tdd-browser": "karma start"
   },
   "repository": "coderiver/easygooglemaps",
-  "keywords": [],
+  "keywords": [
+    "google maps",
+    "markers",
+    "js",
+    "easy",
+    "infobox",
+    "baloons"
+  ],
   "files": [
     "dist",
     "src"
@@ -34,9 +41,16 @@
     "webpack": "^1.12.2"
   },
   "author": {
-    "name": "",
-    "email": "whats0n@mail.ru"
+    "name": "Valentin Dorosh",
+    "email": "wh2ts0n9057@gmail.com"
   },
+  "contributors": [
+      {
+        "name": "Yuri Artiukh",
+        "email": "akella.a@gmail.com",
+        "url": "http://cssing.org.ua/"
+      }
+    ],
   "engines": {
     "node": ">=0.12.0"
   },
