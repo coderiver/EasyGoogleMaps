@@ -1,0 +1,89 @@
+
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Index page</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fff">
+    <meta name="format-detection" content="telephone=no">
+    <style>
+      .map {
+        height: 400px;
+      }
+
+      .awesome-infobox {
+        padding: 10px;
+      }
+
+      .map-content {
+        position: relative;
+        padding: 20px;
+        border-radius: 5px;
+        background: #fff;
+        box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-close {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        background: none;
+      }
+
+      .btn-close:before, .btn-close:after {
+        content: "";
+        position: absolute;
+        top: 10px;
+        height: 12px;
+        border-left: 1px solid #000;
+      }
+
+      .btn-close:before {
+        left: 11px;
+        -webkit-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        -webkit-transform-origin: top left;
+        -ms-transform-origin: top left;
+        transform-origin: top left;
+      }
+
+      .btn-close:after {
+        right: 10px;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+        -webkit-transform-origin: top right;
+        -ms-transform-origin: top right;
+        transform-origin: top right;
+      }
+
+    </style>
+  </head>
+  <body>
+    <!-- BEGIN content -->
+    <div class="out">
+      <div class="js-map map" data-file="json/items.json"></div>
+      <script type="text/underscorejs" id="infobox">
+        <div class="map-content"> <button class="btn-close js-infobox-close"></button>
+          <div className="map-content__info">
+            <%= title %>
+          </div>
+        </div>
+      </script>
+    </div>
+    <!-- END content -->
+    <!-- BEGIN scripts -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMWIxCN9ijYRfiH7bmQN-LNRDtoboLZqY"></script>
+    <script type="text/javascript" src="../dist/easygooglemaps.js"></script>
+    <script type="text/javascript" src="example.js"></script>
+    <!-- END scripts -->
+  </body>
+
+</html>
