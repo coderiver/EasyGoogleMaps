@@ -1,6 +1,6 @@
 {
   "name": "easygooglemaps",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple layer over Google Maps API for creating maps with markers and controlled balloons.",
   "main": "dist/easygooglemaps.js",
   "scripts": {
@@ -45,12 +45,12 @@
     "email": "wh2ts0n9057@gmail.com"
   },
   "contributors": [
-      {
-        "name": "Yuri Artiukh",
-        "email": "akella.a@gmail.com",
-        "url": "http://cssing.org.ua/"
-      }
-    ],
+    {
+      "name": "Yuri Artiukh",
+      "email": "akella.a@gmail.com",
+      "url": "http://cssing.org.ua/"
+    }
+  ],
   "engines": {
     "node": ">=0.12.0"
   },
