@@ -16,7 +16,7 @@ var EasyGoogleMaps = require('easygooglemaps');
 ```
 ### Files:
 ```html
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY”></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
 <script type="text/javascript" src="easygooglemaps.js"></script>
 <script type="text/javascript" src=“YOUR_SCRIPT.js"></script>
 ```
@@ -83,6 +83,16 @@ MyMap.init();
 		]
 	}
 }
+```
+And also HTML template (underscore) for infobox should be specified:
+```html
+<script type="text/underscorejs" id="infobox">
+	<div class="map-content"> <button class="btn-close js-infobox-close"></button>
+		<div className="map-content__info">
+		<%= title %>
+		</div>
+	</div>
+</script>
 ```
 
 
