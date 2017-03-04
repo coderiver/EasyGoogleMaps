@@ -1,6 +1,6 @@
 {
   "name": "easygooglemaps",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple layer over Google Maps API for creating maps with markers and controlled balloons.",
   "main": "dist/easygooglemaps.js",
   "scripts": {
