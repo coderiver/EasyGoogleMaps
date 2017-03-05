@@ -37,13 +37,16 @@ MyMap.init();
 ```js
 {
 	// map options
-	APIKEY: 'YOUR_GOOGLEMAPS_API_KEY',
-	container: '.js-map', // DOM element, where to put map
-	options: {
-		center: {lat: -34.097, lng: 150.644},
-		zoom: 8
+	map: {
+		APIKEY: 'YOUR_GOOGLEMAPS_API_KEY',
+		container: '.js-map', // DOM element, where to put map
+		options: {
+			center: {lat: -34.097, lng: 150.644},
+			zoom: 8
+		}
 	},
-	
+
+	// baloon specific options
 	infobox: {
 		class: 'awesome-infobox',
 		template: '#infobox', // html template for baloon

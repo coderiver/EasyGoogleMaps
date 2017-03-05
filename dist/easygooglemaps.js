@@ -108,7 +108,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var props = this._props;
 	        var that = this;
 
-	        _googleMaps2.default.KEY = props.APIKEY;
+	        _googleMaps2.default.KEY = props.map.APIKEY;
 	        _googleMaps2.default.load(function (google) {
 
 	          !/* require */(/* min-size */function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(3)]; (function (InfoBox) {
@@ -138,8 +138,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      key: '_initMap',
 	      value: function _initMap() {
 	        var props = this._props;
-	        this._container = document.querySelector(props.container);
-	        this._map = new google.maps.Map(this._container, props.options);
+	        this._container = document.querySelector(props.map.container);
+	        this._map = new google.maps.Map(this._container, props.map.options);
 	      }
 	    }, {
 	      key: '_loadData',

@@ -57,11 +57,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	'use strict';
 
 	var map = new EasyGoogleMaps({
-		APIKEY: 'AIzaSyDMWIxCN9ijYRfiH7bmQN-LNRDtoboLZqY',
-		container: '.js-map',
-		options: {
-			center: { lat: -34.097, lng: 150.644 },
-			zoom: 8
+		map: {
+			APIKEY: 'AIzaSyDMWIxCN9ijYRfiH7bmQN-LNRDtoboLZqY',
+			container: '.js-map',
+			options: {
+				center: { lat: -34.097, lng: 150.644 },
+				zoom: 8
+			}
 		},
 		infobox: {
 			template: '#infobox',

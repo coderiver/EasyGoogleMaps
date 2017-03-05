@@ -37,7 +37,7 @@
  			let props = this._props;
  			let that = this;
  			
- 			GoogleMapsLoader.KEY = props.APIKEY;
+ 			GoogleMapsLoader.KEY = props.map.APIKEY;
  			GoogleMapsLoader.load(function(google) {
  				
  				require(["google-maps-infobox"], function(InfoBox) {
@@ -71,8 +71,8 @@
 
  		_initMap() {
  			let props = this._props;
- 			this._container = document.querySelector(props.container);
- 			this._map = new google.maps.Map(this._container, props.options);
+ 			this._container = document.querySelector(props.map.container);
+ 			this._map = new google.maps.Map(this._container, props.map.options);
  		}
 
  		_loadData(callback) {
