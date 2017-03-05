@@ -53,10 +53,8 @@ MyMap.init();
 		closeButton: '.js-infobox-close'
 	},
 	onlyOneBox: true, // single baloon visible
-	// List of data (markers,baloons,infoboxes,whatever) to put on the map
+	// Array of data (markers,baloons,infoboxes,whatever) to put on the map
 	markers: {
-		// possible URL for json data of items
-		// url: 'data-file.json',
 		items: [
 			{
 				"content": {
