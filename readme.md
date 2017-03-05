@@ -15,14 +15,14 @@ $ npm install --save easygooglemaps
 var EasyGoogleMaps = require('easygooglemaps');
 // run module here
 ```
-### Files (example.html):
+### Old school files way (example.html):
 ```html
 <script type="text/javascript" src="easygooglemaps.js"></script>
-<script type="text/javascript" src=“RUN_MODULE_HERE.js"></script>
+<script type="text/javascript" src="RUN_MODULE_HERE.js"></script>
 ```
-## Running (babel)
+## Running
 ```js
-let MyMap = new EasyGoogleMaps(_options_);
+var MyMap = new EasyGoogleMaps(_options_);
 // options reference in next section
 
 MyMap.init();
@@ -40,7 +40,7 @@ MyMap.init();
 	},
 	infobox: {
 		class: 'awesome-infobox',
-		// inline styles for each infobox,
+		// inline styles for each infobox, in case classname in the previous line is not enough
 		style: {
 			width: '300px'
 		},
@@ -54,13 +54,15 @@ MyMap.init();
 	onlyOneBox: true, // single baloon visible
 	template: '#infobox', // html template for baloon
 	container: '.js-map', // DOM element, where to put map
-    // List of markers to put on the map
+
+	// List of data (markers,baloons,infoboxes,whatever) to put on the map
 	markers: {
-    // possible URL for json data of items
-		// url: 'data-file',
+		// possible URL for json data of items
+		// url: 'data-file.json',
 		items: [
 			{
 				"content": {
+					// this is <%= title %> in html template
 					"title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, consequatur."
 				},
 				"marker": {
