@@ -11,7 +11,10 @@
  */
 
  import {template} from 'underscore';
- import InfoBox from 'google-maps-infobox';
+ 
+ import GoogleMapsLoader from 'google-maps';
+
+
 
 
  export default (function() {
@@ -33,31 +36,43 @@
 
  		init() {
  			let props = this._props;
+ 			let that = this;
+ 			
+ 			GoogleMapsLoader.KEY = 'AIzaSyDMWIxCN9ijYRfiH7bmQN-LNRDtoboLZqY';
+ 			GoogleMapsLoader.load(function(google) {
+ 				
 
- 			this._initMap();
+ 				require(["google-maps-infobox"], function() {
+ 				  	let InfoBox =  require('google-maps-infobox');
+ 				  	console.log(InfoBox);
+ 				  	that._initMap();
+					//if you want to get info from some another file using ajax
+					//you need turn on 'ajax' by flag in settings => ajax: true
+					//and you need path to file
+					if (!!!props.markers) return;
+					if (typeof props.markers != 'object') return console.error('Data must be an object!!!');
+					if (!Object.keys(props.markers).length) return console.error('Data must be a non-empty object!!!');
 
- 			//if you want to get info from some another file using ajax
- 			//you need turn on 'ajax' by flag in settings => ajax: true
- 			//and you need path to file
- 			if (!!!props.markers) return;
- 			if (typeof props.markers != 'object') return console.error('Data must be an object!!!');
- 			if (!Object.keys(props.markers).length) return console.error('Data must be a non-empty object!!!');
+					if (props.markers.url) {
+						if (!utils.checkPropsString(props.markers) && utils.checkPropsString(props.markers.url)) {
+							that._loadData((items) => {
+								let infobox = utils.checkPropsString(props.template)
+									? that._getTemplate()
+									: null;
+								that._addItems(items, infobox);
+							});
+						}
+					} else if (!props.markers.url) {
+						let infobox = utils.checkPropsString(props.template)
+							? that._getTemplate()
+							: null;
+						that._addItems(props.markers.items, infobox);
+					}
+ 				});
+ 				
+ 			});
 
- 			if (props.markers.url) {
- 				if (!utils.checkPropsString(props.markers) && utils.checkPropsString(props.markers.url)) {
- 					this._loadData((items) => {
- 						let infobox = utils.checkPropsString(props.template)
- 							? this._getTemplate()
- 							: null;
- 						this._addItems(items, infobox);
- 					});
- 				}
- 			} else if (!props.markers.url) {
- 				let infobox = utils.checkPropsString(props.template)
- 					? this._getTemplate()
- 					: null;
- 				this._addItems(props.markers.items, infobox);
- 			}
+ 			
  		}
 
  		_initMap() {

@@ -9,11 +9,12 @@ var plugins = minimize ? [new webpack.optimize.UglifyJsPlugin({
 
 module.exports = {
   entry: {
-    'dist/easygooglemaps':'./src/easygooglemaps.js'
+    'dist/easygooglemaps':'./src/easygooglemaps.js',
+    'dist/example':'./src/example.js'
   },
   output: {
-    path: './dist',
-    filename: minimize ? 'easygooglemaps.min.js' : 'easygooglemaps.js',
+    path: './',
+    filename: minimize ? '[name].min.js' : '[name].js',
     libraryTarget: 'umd',
     library: 'EasyGoogleMaps'
   },
