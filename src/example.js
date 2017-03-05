@@ -1,7 +1,13 @@
 
 let map = new EasyGoogleMaps({
 	APIKEY: 'AIzaSyDMWIxCN9ijYRfiH7bmQN-LNRDtoboLZqY',
+	container: '.js-map',
+	options: {
+		center: {lat: -34.097, lng: 150.644},
+		zoom: 8
+	},
 	infobox: {
+		template: '#infobox',
 		class: 'awesome-infobox',
 		style: {
 			width: '300px'
@@ -13,14 +19,7 @@ let map = new EasyGoogleMaps({
 		closeButton: '.js-infobox-close'
 	},
 	onlyOneBox: true,
-	template: '#infobox',
-	container: '.js-map',
-	options: {
-		center: {lat: -34.097, lng: 150.644},
-		zoom: 8
-	},
 	markers: {
-		// url: 'data-file',
 		items: [
 			{
 				"content": {
@@ -35,12 +34,12 @@ let map = new EasyGoogleMaps({
 						"default": "img/markerDefault.png",
 						"active": "img/markerActive.png",
 						"size": {
-							"x": 20,
-							"y": 30
+							"x": 41,
+							"y": 58
 						},
 						"centering": {
-							"x": 10,
-							"y": 30
+							"x": 20,
+							"y": 58
 						}
 					}
 				}
@@ -51,19 +50,19 @@ let map = new EasyGoogleMaps({
 				},
 				"marker": {
 					"position": {
-						"lat": -34.597,
-						"lng": 150.644
+						"lat": -34.397,
+						"lng": 150.244
 					},
 					"icon": {
 						"default": "img/markerDefault.png",
 						"active": "img/markerActive.png",
 						"size": {
-							"x": 20,
-							"y": 30
+							"x": 41,
+							"y": 58
 						},
 						"centering": {
-							"x": 10,
-							"y": 30
+							"x": 20,
+							"y": 58
 						}
 					}
 				}

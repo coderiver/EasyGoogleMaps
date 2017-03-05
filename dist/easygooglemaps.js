@@ -123,12 +123,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (props.markers.url) {
 	              if (!utils.checkPropsString(props.markers) && utils.checkPropsString(props.markers.url)) {
 	                that._loadData(function (items) {
-	                  var infobox = utils.checkPropsString(props.template) ? that._getTemplate() : null;
+	                  var infobox = utils.checkPropsString(props.infobox.template) ? that._getTemplate() : null;
 	                  that._addItems(items, infobox, InfoBox);
 	                });
 	              }
 	            } else if (!props.markers.url) {
-	              var infobox = utils.checkPropsString(props.template) ? that._getTemplate() : null;
+	              var infobox = utils.checkPropsString(props.infobox.template) ? that._getTemplate() : null;
 	              that._addItems(props.markers.items, infobox, InfoBox);
 	            }
 	          }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}());
@@ -159,7 +159,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	      key: '_getTemplate',
 	      value: function _getTemplate() {
-	        var HTML = document.querySelector(this._props.template).innerHTML;
+	        var HTML = document.querySelector(this._props.infobox.template).innerHTML;
 	        return (0, _underscore.template)(HTML);
 	      }
 

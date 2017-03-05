@@ -4,7 +4,7 @@
 
   <head>
     <meta charset="utf-8">
-    <title>Index page</title>
+    <title>EasyGoogleMaps example</title>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#fff">
@@ -16,17 +16,32 @@
 
       .awesome-infobox {
         padding: 10px;
+        position: relative;
+      }
+      .awesome-infobox:before{
+        content: "";
+        width: 20px;
+        height: 20px;
+        transform: rotate(-45deg);
+        background: #fff;
+        top: 50%;
+        right: 4px;
+        margin-top: -10px;
+        z-index: 10;
+        position: absolute;
       }
 
-      .map-content {
+      .baloon {
         position: relative;
         padding: 20px;
         border-radius: 5px;
         background: #fff;
         box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.1);
+        font-size: 20px;
+        line-height: 1.5;
       }
 
-      .btn-close {
+      .baloon__close {
         position: absolute;
         z-index: 10;
         top: 0;
@@ -34,9 +49,11 @@
         width: 30px;
         height: 30px;
         background: none;
+        border: none;
+        cursor: pointer;
       }
 
-      .btn-close:before, .btn-close:after {
+      .baloon__close:before, .baloon__close:after {
         content: "";
         position: absolute;
         top: 10px;
@@ -44,7 +61,7 @@
         border-left: 1px solid #000;
       }
 
-      .btn-close:before {
+      .baloon__close:before {
         left: 11px;
         -webkit-transform: rotate(-45deg);
         -ms-transform: rotate(-45deg);
@@ -54,7 +71,7 @@
         transform-origin: top left;
       }
 
-      .btn-close:after {
+      .baloon__close:after {
         right: 10px;
         -webkit-transform: rotate(45deg);
         -ms-transform: rotate(45deg);
@@ -67,23 +84,22 @@
     </style>
   </head>
   <body>
-    <!-- BEGIN content -->
-    <div class="out">
-      <div class="js-map map" data-file="json/items.json"></div>
-      <script type="text/underscorejs" id="infobox">
-        <div class="map-content"> <button class="btn-close js-infobox-close"></button>
-          <div className="map-content__info">
-            <%= title %>
-          </div>
-        </div>
-      </script>
-    </div>
-    <!-- END content -->
-    <!-- BEGIN scripts -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMWIxCN9ijYRfiH7bmQN-LNRDtoboLZqY"></script> -->
-    <script type="text/javascript" src="../dist/easygooglemaps.js"></script>
-    <script type="text/javascript" src="../dist/example.js"></script>
-    <!-- END scripts -->
-  </body>
 
+
+  <div class="js-map map"></div>
+
+
+  <script type="text/underscorejs" id="infobox">
+    <div class="baloon"> <button class="baloon__close js-infobox-close"></button>
+      <div className="baloon__content">
+        <%= title %>
+      </div>
+    </div>
+  </script>
+
+
+  <script type="text/javascript" src="../dist/easygooglemaps.js"></script>
+  <script type="text/javascript" src="../dist/example.js"></script>
+
+  </body>
 </html>

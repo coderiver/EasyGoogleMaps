@@ -1,7 +1,8 @@
 
 [![Dependency Status][depstat-image]][depstat-url]
 
-> Simple layer to create expandable baloons(infoboxes) on the map. We are tired of google maps syntax, infobox and whatever. We wanted just one module with straightforward syntax to do the job like this:
+> Simple layer to create expandable baloons(infoboxes) on the map. [See example](https://rawgit.com/coderiver/EasyGoogleMaps/master/example/index.html). We are tired of google maps syntax, infobox and whatever. We wanted just one module with straightforward syntax to do the job like this:
+> 
 > ![Module usage example](https://github.com/coderiver/easygooglemaps/raw/master/example/screenshot.png "Module usage example")
 
 ## Installation
@@ -16,7 +17,7 @@ $ npm install --save easygooglemaps
 var EasyGoogleMaps = require('easygooglemaps');
 // run module here
 ```
-### Old school files way (example.html):
+### Old school files way ([example.html](https://rawgit.com/coderiver/EasyGoogleMaps/master/example/index.html)):
 ```html
 <script type="text/javascript" src="easygooglemaps.js"></script>
 <script type="text/javascript" src="RUN_MODULE_HERE.js"></script>
@@ -35,17 +36,16 @@ MyMap.init();
 {
 	// map options
 	APIKEY: 'YOUR_GOOGLEMAPS_API_KEY',
+	container: '.js-map', // DOM element, where to put map
 	options: {
 		center: {lat: -34.097, lng: 150.644},
 		zoom: 8
 	},
+	
 	infobox: {
 		class: 'awesome-infobox',
-		// inline styles for each infobox, in case classname in the previous line is not enough
-		style: {
-			width: '300px'
-		},
-		// each infobox position
+		template: '#infobox', // html template for baloon
+		// baloon relative to marker position
 		position: {
 			y: "center",
 			x: "left"
@@ -53,9 +53,6 @@ MyMap.init();
 		closeButton: '.js-infobox-close'
 	},
 	onlyOneBox: true, // single baloon visible
-	template: '#infobox', // html template for baloon
-	container: '.js-map', // DOM element, where to put map
-
 	// List of data (markers,baloons,infoboxes,whatever) to put on the map
 	markers: {
 		// possible URL for json data of items

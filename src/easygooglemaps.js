@@ -52,14 +52,14 @@
 					if (props.markers.url) {
 						if (!utils.checkPropsString(props.markers) && utils.checkPropsString(props.markers.url)) {
 							that._loadData((items) => {
-								let infobox = utils.checkPropsString(props.template)
+								let infobox = utils.checkPropsString(props.infobox.template)
 									? that._getTemplate()
 									: null;
 								that._addItems(items, infobox,InfoBox);
 							});
 						}
 					} else if (!props.markers.url) {
-						let infobox = utils.checkPropsString(props.template)
+						let infobox = utils.checkPropsString(props.infobox.template)
 							? that._getTemplate()
 							: null;
 						that._addItems(props.markers.items, infobox,InfoBox);
@@ -90,7 +90,7 @@
  		}
 
  		_getTemplate() {
- 			let HTML = document.querySelector(this._props.template).innerHTML;
+ 			let HTML = document.querySelector(this._props.infobox.template).innerHTML;
  			return template(HTML);
  		}
 
