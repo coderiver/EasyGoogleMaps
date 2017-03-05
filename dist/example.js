@@ -66,6 +66,7 @@ return /******/ (function(modules) { // webpackBootstrap
 		infobox: {
 			template: '#infobox',
 			class: 'awesome-infobox',
+			onlyOneBox: true,
 			style: {
 				width: '300px'
 			},
@@ -75,7 +76,6 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 			closeButton: '.js-infobox-close'
 		},
-		onlyOneBox: true,
 		markers: {
 			items: [{
 				"content": {

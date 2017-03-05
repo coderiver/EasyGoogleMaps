@@ -199,7 +199,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          _loop(i);
 	        }
 
-	        if (!this._props.onlyOneBox) return;
+	        if (!this._props.infobox.onlyOneBox) return;
 	        google.maps.event.addListener(this._map, 'click', function (e) {
 	          _this._closeAllInfobox();
 	        });
@@ -256,7 +256,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var activeIcon = marker.activeIcon;
 	        var defaultIcon = marker.defaultIcon;
 	        if (!item.isOpen) {
-	          if (this._props.onlyOneBox) {
+	          if (this._props.infobox.onlyOneBox) {
 	            this._closeAllInfobox();
 	            this._closeMarkers();
 	          }

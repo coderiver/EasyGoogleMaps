@@ -120,7 +120,7 @@
 
  			}
 
- 			if (!this._props.onlyOneBox) return;
+ 			if (!this._props.infobox.onlyOneBox) return;
  			google.maps.event.addListener(this._map, 'click', e => {
  				this._closeAllInfobox();
  			});
@@ -165,7 +165,7 @@
  			let activeIcon = marker.activeIcon;
  			let defaultIcon = marker.defaultIcon;
  			if (!item.isOpen) {
- 				if (this._props.onlyOneBox) {
+ 				if (this._props.infobox.onlyOneBox) {
  					this._closeAllInfobox();
  					this._closeMarkers();
  				}

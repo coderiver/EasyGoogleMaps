@@ -45,6 +45,7 @@ MyMap.init();
 	infobox: {
 		class: 'awesome-infobox',
 		template: '#infobox', // html template for baloon
+		onlyOneBox: true, // single baloon visible
 		// baloon relative to marker position
 		position: {
 			y: "center",
@@ -52,7 +53,7 @@ MyMap.init();
 		},
 		closeButton: '.js-infobox-close'
 	},
-	onlyOneBox: true, // single baloon visible
+	
 	// Array of data (markers,baloons,infoboxes,whatever) to put on the map
 	markers: {
 		items: [
@@ -87,8 +88,8 @@ MyMap.init();
 And also HTML template (underscore) for infobox should be specified:
 ```html
 <script type="text/underscorejs" id="infobox">
-	<div class="map-content"> <button class="btn-close js-infobox-close"></button>
-		<div className="map-content__info">
+	<div class="baloon"> <button class="baloon__close js-infobox-close"></button>
+		<div className="baloon__content">
 		<%= title %>
 		</div>
 	</div>

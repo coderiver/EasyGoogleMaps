@@ -9,6 +9,7 @@ let map = new EasyGoogleMaps({
 	infobox: {
 		template: '#infobox',
 		class: 'awesome-infobox',
+		onlyOneBox: true,
 		style: {
 			width: '300px'
 		},
@@ -18,7 +19,6 @@ let map = new EasyGoogleMaps({
 		},
 		closeButton: '.js-infobox-close'
 	},
-	onlyOneBox: true,
 	markers: {
 		items: [
 			{
