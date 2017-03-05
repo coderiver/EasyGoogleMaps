@@ -1,19 +1,12 @@
 /**
  * EasyGoogleMaps
  * Description
- *
+ * Creates map with expandable markers
  * @name EasyGoogleMaps
- * @function
- * @param {Array} data An array of data
- * @param {Object} options An object containing the following fields:
- *
- * @return {Array} Result
  */
 
  import {template} from 'underscore';
  import GoogleMapsLoader from 'google-maps';
-
-
 
 
  export default (function() {

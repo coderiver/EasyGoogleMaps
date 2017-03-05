@@ -9,8 +9,7 @@ var plugins = minimize ? [new webpack.optimize.UglifyJsPlugin({
 
 module.exports = {
   entry: {
-    'dist/easygooglemaps':'./src/easygooglemaps.js',
-    'dist/example':'./src/example.js'
+    'dist/easygooglemaps':'./src/easygooglemaps.js'
   },
   output: {
     path: './',
