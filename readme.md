@@ -1,7 +1,8 @@
 
 [![Dependency Status][depstat-image]][depstat-url]
 
-> Description
+> Simple layer to create expandable baloons(infoboxes) on the map. We are tired of google maps syntax, infobox and whatever. We wanted just one module with straightforward syntax to do the job like this:
+> ![Module usage example](https://github.com/coderiver/easygooglemaps/raw/master/example/screenshot.png "Module usage example")
 
 ## Installation
 
