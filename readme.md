@@ -3,7 +3,7 @@
 
 > <img align="right" width="120" 
      title="EasyGoogleMaps Logo"
-     src="https://rawgit.com/coderiver/easygooglemaps/master/logo.svg">Simple layer to create expandable baloons(infoboxes) on the map. [See example](https://rawgit.com/coderiver/EasyGoogleMaps/master/example/index.html). We are tired of google maps syntax, infobox and whatever. We wanted just one module with straightforward syntax to do the job like this:
+     src="https://rawgit.com/coderiver/easygooglemaps/master/logo.svg">Simple layer over Google Maps API to create expandable baloons(infoboxes) on the map. [See example](https://rawgit.com/coderiver/EasyGoogleMaps/master/example/index.html). We are tired of google maps syntax, infobox and whatever. Simple and straightforward syntax to do common job like this:
 > 
 > ![Module usage example](https://github.com/coderiver/easygooglemaps/raw/master/example/screenshot.png "Module usage example")
 
@@ -75,6 +75,7 @@ MyMap.init();
 					"icon": {
 						"default": "img/markerDefault.png",
 						"active": "img/markerActive.png",
+						// for retina icon should be 40x60
 						"size": {
 							"x": 20,
 							"y": 30

@@ -65,6 +65,7 @@ return /******/ (function(modules) { // webpackBootstrap
 				zoom: 8
 			}
 		},
+
 		infobox: {
 			template: '#infobox',
 			class: 'awesome-infobox',
@@ -78,6 +79,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			},
 			closeButton: '.js-infobox-close'
 		},
+
 		markers: {
 			items: [{
 				"content": {
