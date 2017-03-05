@@ -11,7 +11,6 @@
  */
 
  import {template} from 'underscore';
- 
  import GoogleMapsLoader from 'google-maps';
 
 
@@ -38,13 +37,10 @@
  			let props = this._props;
  			let that = this;
  			
- 			GoogleMapsLoader.KEY = 'AIzaSyDMWIxCN9ijYRfiH7bmQN-LNRDtoboLZqY';
+ 			GoogleMapsLoader.KEY = props.APIKEY;
  			GoogleMapsLoader.load(function(google) {
  				
-
- 				require(["google-maps-infobox"], function() {
- 				  	let InfoBox =  require('google-maps-infobox');
- 				  	console.log(InfoBox);
+ 				require(["google-maps-infobox"], function(InfoBox) {
  				  	that._initMap();
 					//if you want to get info from some another file using ajax
 					//you need turn on 'ajax' by flag in settings => ajax: true
@@ -59,20 +55,18 @@
 								let infobox = utils.checkPropsString(props.template)
 									? that._getTemplate()
 									: null;
-								that._addItems(items, infobox);
+								that._addItems(items, infobox,InfoBox);
 							});
 						}
 					} else if (!props.markers.url) {
 						let infobox = utils.checkPropsString(props.template)
 							? that._getTemplate()
 							: null;
-						that._addItems(props.markers.items, infobox);
+						that._addItems(props.markers.items, infobox,InfoBox);
 					}
  				});
  				
  			});
-
- 			
  		}
 
  		_initMap() {
@@ -105,7 +99,7 @@
  		//*****************ALL ITEMS*****************
  		//*******************************************
 
- 		_addItems(items, infobox) {
+ 		_addItems(items, infobox,InfoBox) {
  			for (let i = 0; i < items.length; i++) {
 
  				let markerOptions = items[i].marker;
@@ -116,7 +110,7 @@
  				if (infobox && this._props.infobox) {
  					let content = items[i].content;
  					let compiled = infobox(content);
- 					let ib = this._createInfoBox(compiled, marker);
+ 					let ib = this._createInfoBox(compiled, marker,InfoBox);
 
  					this._infoboxes.push(ib);
  					//toggle content on click
@@ -232,7 +226,7 @@
  		//******************INFOBOX******************
  		//*******************************************
 
- 		_createInfoBox(content, marker) {
+ 		_createInfoBox(content, marker, InfoBox) {
  			let props = this._props.infobox;
 
  			let style = props.style || {};

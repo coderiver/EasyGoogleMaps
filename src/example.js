@@ -1,5 +1,6 @@
 
 let map = new EasyGoogleMaps({
+	APIKEY: 'AIzaSyDMWIxCN9ijYRfiH7bmQN-LNRDtoboLZqY',
 	infobox: {
 		class: 'awesome-infobox',
 		style: {

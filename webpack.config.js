@@ -4,8 +4,8 @@ var plugins = minimize ? [new webpack.optimize.UglifyJsPlugin({
   minimize: true,
   compress: {
     drop_console: true
-  }
-})] : [];
+  },
+}),new webpack.optimize.MinChunkSizePlugin({minChunkSize: '100000'})] : [new webpack.optimize.MinChunkSizePlugin({minChunkSize: '100000'})];
 
 module.exports = {
   entry: {

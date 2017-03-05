@@ -76,9 +76,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _underscore = __webpack_require__(1);
 
-	var _googleMapsInfobox = __webpack_require__(2);
+	var _googleMaps = __webpack_require__(2);
 
-	var _googleMapsInfobox2 = _interopRequireDefault(_googleMapsInfobox);
+	var _googleMaps2 = _interopRequireDefault(_googleMaps);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -105,30 +105,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	    _createClass(Map, [{
 	      key: 'init',
 	      value: function init() {
-	        var _this = this;
-
 	        var props = this._props;
+	        var that = this;
 
-	        this._initMap();
+	        _googleMaps2.default.KEY = props.APIKEY;
+	        _googleMaps2.default.load(function (google) {
 
-	        //if you want to get info from some another file using ajax
-	        //you need turn on 'ajax' by flag in settings => ajax: true
-	        //and you need path to file
-	        if (!!!props.markers) return;
-	        if (_typeof(props.markers) != 'object') return console.error('Data must be an object!!!');
-	        if (!Object.keys(props.markers).length) return console.error('Data must be a non-empty object!!!');
+	          !/* require */(/* min-size */function() { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(3)]; (function (InfoBox) {
+	            that._initMap();
+	            //if you want to get info from some another file using ajax
+	            //you need turn on 'ajax' by flag in settings => ajax: true
+	            //and you need path to file
+	            if (!!!props.markers) return;
+	            if (_typeof(props.markers) != 'object') return console.error('Data must be an object!!!');
+	            if (!Object.keys(props.markers).length) return console.error('Data must be a non-empty object!!!');
 
-	        if (props.markers.url) {
-	          if (!utils.checkPropsString(props.markers) && utils.checkPropsString(props.markers.url)) {
-	            this._loadData(function (items) {
-	              var infobox = utils.checkPropsString(props.template) ? _this._getTemplate() : null;
-	              _this._addItems(items, infobox);
-	            });
-	          }
-	        } else if (!props.markers.url) {
-	          var infobox = utils.checkPropsString(props.template) ? this._getTemplate() : null;
-	          this._addItems(props.markers.items, infobox);
-	        }
+	            if (props.markers.url) {
+	              if (!utils.checkPropsString(props.markers) && utils.checkPropsString(props.markers.url)) {
+	                that._loadData(function (items) {
+	                  var infobox = utils.checkPropsString(props.template) ? that._getTemplate() : null;
+	                  that._addItems(items, infobox, InfoBox);
+	                });
+	              }
+	            } else if (!props.markers.url) {
+	              var infobox = utils.checkPropsString(props.template) ? that._getTemplate() : null;
+	              that._addItems(props.markers.items, infobox, InfoBox);
+	            }
+	          }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));}());
+	        });
 	      }
 	    }, {
 	      key: '_initMap',
@@ -165,28 +169,28 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    }, {
 	      key: '_addItems',
-	      value: function _addItems(items, infobox) {
-	        var _this2 = this;
+	      value: function _addItems(items, infobox, InfoBox) {
+	        var _this = this;
 
 	        var _loop = function _loop(i) {
 
 	          var markerOptions = items[i].marker;
-	          var marker = _this2._createMarker(markerOptions);
+	          var marker = _this._createMarker(markerOptions);
 
-	          _this2._markers.push(marker);
+	          _this._markers.push(marker);
 
-	          if (infobox && _this2._props.infobox) {
+	          if (infobox && _this._props.infobox) {
 	            var content = items[i].content;
 	            var compiled = infobox(content);
-	            var ib = _this2._createInfoBox(compiled, marker);
+	            var ib = _this._createInfoBox(compiled, marker, InfoBox);
 
-	            _this2._infoboxes.push(ib);
+	            _this._infoboxes.push(ib);
 	            //toggle content on click
 	            google.maps.event.addListener(marker, 'click', function (e) {
-	              return _this2._toggleInfobox(ib, marker);
+	              return _this._toggleInfobox(ib, marker);
 	            });
 	            google.maps.event.addListener(ib, 'domready', function (e) {
-	              return _this2._addEventOnCloseButton(ib, marker);
+	              return _this._addEventOnCloseButton(ib, marker);
 	            });
 	          }
 	        };
@@ -197,13 +201,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	        if (!this._props.onlyOneBox) return;
 	        google.maps.event.addListener(this._map, 'click', function (e) {
-	          _this2._closeAllInfobox();
+	          _this._closeAllInfobox();
 	        });
 	      }
 	    }, {
 	      key: '_addEventOnCloseButton',
 	      value: function _addEventOnCloseButton(ib, marker) {
-	        var _this3 = this;
+	        var _this2 = this;
 
 	        var props = this._props;
 	        var infobox = ib.div_;
@@ -214,8 +218,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        Array.prototype.forEach.call(buttons, function (button) {
 	          button.addEventListener('click', function (e) {
 	            e.preventDefault();
-	            _this3._closeInfobox(ib);
-	            _this3._closeMarker(marker);
+	            _this2._closeInfobox(ib);
+	            _this2._closeMarker(marker);
 	          }, false);
 	        });
 	      }
@@ -227,10 +231,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	      key: '_closeAllInfobox',
 	      value: function _closeAllInfobox() {
-	        var _this4 = this;
+	        var _this3 = this;
 
 	        this._infoboxes.forEach(function (infobox) {
-	          return _this4._closeInfobox(infobox);
+	          return _this3._closeInfobox(infobox);
 	        });
 	        this._closeMarkers();
 	      }
@@ -299,10 +303,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	      key: '_closeMarkers',
 	      value: function _closeMarkers() {
-	        var _this5 = this;
+	        var _this4 = this;
 
 	        this._markers.forEach(function (marker) {
-	          return _this5._closeMarker(marker);
+	          return _this4._closeMarker(marker);
 	        });
 	      }
 	    }, {
@@ -324,7 +328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    }, {
 	      key: '_createInfoBox',
-	      value: function _createInfoBox(content, marker) {
+	      value: function _createInfoBox(content, marker, InfoBox) {
 	        var props = this._props.infobox;
 
 	        var style = props.style || {};
@@ -336,7 +340,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._offsetX = markerSize.x;
 	        this._offsetY = markerSize.y;
 
-	        return new _googleMapsInfobox2.default({
+	        return new InfoBox({
 	          content: content,
 
 	          enableEventPropagation: false,
@@ -1992,6 +1996,231 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root, factory) {
+
+		if (root === null) {
+			throw new Error('Google-maps package can be used only in browser');
+		}
+
+		if (true) {
+			!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof exports === 'object') {
+			module.exports = factory();
+		} else {
+			root.GoogleMapsLoader = factory();
+		}
+
+	})(typeof window !== 'undefined' ? window : null, function() {
+
+
+		'use strict';
+
+
+		var googleVersion = '3.18';
+
+		var script = null;
+
+		var google = null;
+
+		var loading = false;
+
+		var callbacks = [];
+
+		var onLoadEvents = [];
+
+		var originalCreateLoaderMethod = null;
+
+
+		var GoogleMapsLoader = {};
+
+
+		GoogleMapsLoader.URL = 'https://maps.googleapis.com/maps/api/js';
+
+		GoogleMapsLoader.KEY = null;
+
+		GoogleMapsLoader.LIBRARIES = [];
+
+		GoogleMapsLoader.CLIENT = null;
+
+		GoogleMapsLoader.CHANNEL = null;
+
+		GoogleMapsLoader.LANGUAGE = null;
+
+		GoogleMapsLoader.REGION = null;
+
+		GoogleMapsLoader.VERSION = googleVersion;
+
+		GoogleMapsLoader.WINDOW_CALLBACK_NAME = '__google_maps_api_provider_initializator__';
+
+
+		GoogleMapsLoader._googleMockApiObject = {};
+
+
+		GoogleMapsLoader.load = function(fn) {
+			if (google === null) {
+				if (loading === true) {
+					if (fn) {
+						callbacks.push(fn);
+					}
+				} else {
+					loading = true;
+
+					window[GoogleMapsLoader.WINDOW_CALLBACK_NAME] = function() {
+						ready(fn);
+					};
+
+					GoogleMapsLoader.createLoader();
+				}
+			} else if (fn) {
+				fn(google);
+			}
+		};
+
+
+		GoogleMapsLoader.createLoader = function() {
+			script = document.createElement('script');
+			script.type = 'text/javascript';
+			script.src = GoogleMapsLoader.createUrl();
+
+			document.body.appendChild(script);
+		};
+
+
+		GoogleMapsLoader.isLoaded = function() {
+			return google !== null;
+		};
+
+
+		GoogleMapsLoader.createUrl = function() {
+			var url = GoogleMapsLoader.URL;
+
+			url += '?callback=' + GoogleMapsLoader.WINDOW_CALLBACK_NAME;
+
+			if (GoogleMapsLoader.KEY) {
+				url += '&key=' + GoogleMapsLoader.KEY;
+			}
+
+			if (GoogleMapsLoader.LIBRARIES.length > 0) {
+				url += '&libraries=' + GoogleMapsLoader.LIBRARIES.join(',');
+			}
+
+			if (GoogleMapsLoader.CLIENT) {
+				url += '&client=' + GoogleMapsLoader.CLIENT + '&v=' + GoogleMapsLoader.VERSION;
+			}
+
+			if (GoogleMapsLoader.CHANNEL) {
+				url += '&channel=' + GoogleMapsLoader.CHANNEL;
+			}
+
+			if (GoogleMapsLoader.LANGUAGE) {
+				url += '&language=' + GoogleMapsLoader.LANGUAGE;
+			}
+
+			if (GoogleMapsLoader.REGION) {
+				url += '&region=' + GoogleMapsLoader.REGION;
+			}
+
+			return url;
+		};
+
+
+		GoogleMapsLoader.release = function(fn) {
+			var release = function() {
+				GoogleMapsLoader.KEY = null;
+				GoogleMapsLoader.LIBRARIES = [];
+				GoogleMapsLoader.CLIENT = null;
+				GoogleMapsLoader.CHANNEL = null;
+				GoogleMapsLoader.LANGUAGE = null;
+				GoogleMapsLoader.REGION = null;
+				GoogleMapsLoader.VERSION = googleVersion;
+
+				google = null;
+				loading = false;
+				callbacks = [];
+				onLoadEvents = [];
+
+				if (typeof window.google !== 'undefined') {
+					delete window.google;
+				}
+
+				if (typeof window[GoogleMapsLoader.WINDOW_CALLBACK_NAME] !== 'undefined') {
+					delete window[GoogleMapsLoader.WINDOW_CALLBACK_NAME];
+				}
+
+				if (originalCreateLoaderMethod !== null) {
+					GoogleMapsLoader.createLoader = originalCreateLoaderMethod;
+					originalCreateLoaderMethod = null;
+				}
+
+				if (script !== null) {
+					script.parentElement.removeChild(script);
+					script = null;
+				}
+
+				if (fn) {
+					fn();
+				}
+			};
+
+			if (loading) {
+				GoogleMapsLoader.load(function() {
+					release();
+				});
+			} else {
+				release();
+			}
+		};
+
+
+		GoogleMapsLoader.onLoad = function(fn) {
+			onLoadEvents.push(fn);
+		};
+
+
+		GoogleMapsLoader.makeMock = function() {
+			originalCreateLoaderMethod = GoogleMapsLoader.createLoader;
+
+			GoogleMapsLoader.createLoader = function() {
+				window.google = GoogleMapsLoader._googleMockApiObject;
+				window[GoogleMapsLoader.WINDOW_CALLBACK_NAME]();
+			};
+		};
+
+
+		var ready = function(fn) {
+			var i;
+
+			loading = false;
+
+			if (google === null) {
+				google = window.google;
+			}
+
+			for (i = 0; i < onLoadEvents.length; i++) {
+				onLoadEvents[i](google);
+			}
+
+			if (fn) {
+				fn(google);
+			}
+
+			for (i = 0; i < callbacks.length; i++) {
+				callbacks[i](google);
+			}
+
+			callbacks = [];
+		};
+
+
+		return GoogleMapsLoader;
+
+	});
+
+
+/***/ },
+/* 3 */
 /***/ function(module, exports) {
 
 	/**

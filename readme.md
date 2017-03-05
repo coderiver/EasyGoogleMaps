@@ -13,31 +13,38 @@ $ npm install --save easygooglemaps
 ### Webpack
 ```js
 var EasyGoogleMaps = require('easygooglemaps');
+// run module here
 ```
-### Files:
+### Files (example.html):
 ```html
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
 <script type="text/javascript" src="easygooglemaps.js"></script>
-<script type="text/javascript" src=“YOUR_SCRIPT.js"></script>
+<script type="text/javascript" src=“RUN_MODULE_HERE.js"></script>
 ```
 ## Running (babel)
 ```js
-let MyMap = new EasyGoogleMaps(*options*);
+let MyMap = new EasyGoogleMaps(_options_);
 // options reference in next section
 
 MyMap.init();
 ```
 
 
-#### Parameters (options)
+#### Parameters (_options_)
 ```js
 {
-	
+	// map options
+	APIKEY: 'YOUR_GOOGLEMAPS_API_KEY',
+	options: {
+		center: {lat: -34.097, lng: 150.644},
+		zoom: 8
+	},
 	infobox: {
 		class: 'awesome-infobox',
+		// inline styles for each infobox,
 		style: {
 			width: '300px'
 		},
+		// each infobox position
 		position: {
 			y: "center",
 			x: "left"
@@ -47,12 +54,7 @@ MyMap.init();
 	onlyOneBox: true, // single baloon visible
 	template: '#infobox', // html template for baloon
 	container: '.js-map', // DOM element, where to put map
-  // map options
-	options: {
-		center: {lat: -34.097, lng: 150.644},
-		zoom: 8
-	},
-  // List of markers to put on the map
+    // List of markers to put on the map
 	markers: {
     // possible URL for json data of items
 		// url: 'data-file',
@@ -101,9 +103,11 @@ And also HTML template (underscore) for infobox should be specified:
 
 
 ## License
-MIT © [](http://github.com/coderiver)
+MIT © [Coderiver](http://riverco.de)
 ## Authors:
 Valentin ‘Whats0n’ Dorosh
+## Contributors:
+Yuri [akella](http://cssing.org.ua) Artiukh
 
 [depstat-url]: https://david-dm.org/coderiver/easygooglemaps
 [depstat-image]: https://david-dm.org/coderiver/easygooglemaps.svg		 
