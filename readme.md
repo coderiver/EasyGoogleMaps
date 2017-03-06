@@ -3,7 +3,7 @@
 
 > <img align="right" width="120" 
      title="EasyGoogleMaps Logo"
-     src="https://rawgit.com/coderiver/easygooglemaps/master/logo.svg">Simple layer over Google Maps API to create expandable baloons(infoboxes) on the map. [See example](https://rawgit.com/coderiver/EasyGoogleMaps/master/example/index.html). We are tired of google maps syntax, infobox and whatever. Simple and straightforward syntax to do common job like this:
+     src="https://rawgit.com/coderiver/easygooglemaps/master/logo.svg">Simple layer over Google Maps API to create expandable baloons(infoboxes) on the map. [See example](https://coderiver.github.io/EasyGoogleMaps/example/index.html). We are tired of google maps syntax, infobox and whatever. Simple and straightforward syntax to do common job like this:
 > 
 > ![Module usage example](https://github.com/coderiver/easygooglemaps/raw/master/example/screenshot.png "Module usage example")
 
@@ -19,7 +19,7 @@ $ npm install --save easygooglemaps
 var EasyGoogleMaps = require('easygooglemaps');
 // run module here
 ```
-### Old school files way ([example.html](https://rawgit.com/coderiver/EasyGoogleMaps/master/example/index.html)):
+### Old school files way ([example.html](https://coderiver.github.io/EasyGoogleMaps/example/index.html)):
 ```html
 <script type="text/javascript" src="easygooglemaps.js"></script>
 <script type="text/javascript" src="RUN_MODULE_HERE.js"></script>
