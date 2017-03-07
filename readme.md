@@ -64,7 +64,7 @@ MyMap.init();
 		items: [
 			{
 				"content": {
-					// this is <%= title %> in html template
+					// this is {{=baloon.title}} in html template
 					"title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, consequatur."
 				},
 				"marker": {
@@ -91,12 +91,12 @@ MyMap.init();
 	}
 }
 ```
-And also HTML template (underscore) for infobox should be specified:
+And also HTML template (doT) for infobox should be specified:
 ```html
 <script type="text/underscorejs" id="infobox">
 	<div class="baloon"> <button class="baloon__close js-infobox-close"></button>
 		<div className="baloon__content">
-		<%= title %>
+			{{=baloon.title}}
 		</div>
 	</div>
 </script>

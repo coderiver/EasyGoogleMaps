@@ -56,8 +56,11 @@
   },
   "license": "MIT",
   "dependencies": {
+    "dot": "^1.1.1",
     "google-maps": "^3.2.1",
     "google-maps-infobox": "^1.1.14",
-    "underscore": "^1.8.3"
+    "handlebars": "^4.0.6",
+    "json-loader": "^0.5.4",
+    "webpack-bundle-analyzer": "^2.3.0"
   }
 }

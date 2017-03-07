@@ -5,8 +5,8 @@
  * @name EasyGoogleMaps
  */
 
- import {template} from 'underscore';
  import GoogleMapsLoader from 'google-maps';
+ import dot from 'dot';
 
 
  export default (function() {
@@ -84,7 +84,8 @@
 
  		_getTemplate() {
  			let HTML = document.querySelector(this._props.infobox.template).innerHTML;
- 			return template(HTML);
+ 			dot.templateSettings.varname = 'baloon';
+ 			return dot.template(HTML);
  		}
 
 
