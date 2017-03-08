@@ -1,4 +1,6 @@
-
+// =======================================
+// ====BASIC SETTINGS=====================
+// =======================================
 let map = new EasyGoogleMaps({
 	map: {
 		APIKEY: 'AIzaSyDMWIxCN9ijYRfiH7bmQN-LNRDtoboLZqY',
@@ -17,8 +19,8 @@ let map = new EasyGoogleMaps({
 			width: '300px'
 		},
 		position: {
-			y: "center",
-			x: "left"
+			x: "left",
+			y: "center"
 		},
 		closeButton: '.js-infobox-close'
 	},
@@ -76,9 +78,14 @@ let map = new EasyGoogleMaps({
 		]
 	}
 });
-
+// =======================================
+// ========INITIATING MAP=================
+// =======================================
 map.init();
 
+// =======================================
+// ========ADDING ARRAY OF POINTS=========
+// =======================================
 map.add([
 	{
 		"content": {
@@ -130,6 +137,9 @@ map.add([
 	}
 ]);
 
+// =======================================
+// ========ADDING ONE POINT===============
+// =======================================
 map.add({
 	"content": {
 		"title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, consequatur."
@@ -162,6 +172,9 @@ let showMarker = document.querySelector('.js-show');
 let hideMarker = document.querySelector('.js-hide');
 
 addOneMarker.addEventListener('click', () => {
+	// =======================================
+	// ====ADDING ONE POINT WITH CLICK========
+	// =======================================
 	map.add({
 		"content": {
 			"title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, consequatur."
@@ -187,7 +200,11 @@ addOneMarker.addEventListener('click', () => {
 		}
 	});
 }, false);
-addSeveralMarker.addEventListener('click', () => {
+
+addSeveralMarker.addEventListener('click', function() {
+	// =======================================
+	// ====ADDING MANY POINTS WITH CLICK======
+	// =======================================
 	map.add([
 		{
 			"content": {
@@ -240,13 +257,22 @@ addSeveralMarker.addEventListener('click', () => {
 	]);
 }, false);
 
-showMarker.addEventListener('click', () => {
+
+// =======================================
+// ====SHOW HIDE MARKER===================
+// =======================================
+showMarker.addEventListener('click', function() {
 	map.show(2);
 }, false);
 
-hideMarker.addEventListener('click', () => {
+hideMarker.addEventListener('click', function() {
 	map.hide(2);
 }, false);
+
+
+// =======================================
+// ====ONLOAD EVENT=======================
+// =======================================
 
 // map.onload(() => {
 // 	alert('loaded');

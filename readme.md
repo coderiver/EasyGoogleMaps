@@ -56,9 +56,8 @@ MyMap.init();
 		onlyOneBox: true, // single baloon visible
 		// baloon relative to marker position
 		position: {
-			x: "right",
-			y: "center"
-			
+			x: "left",
+			y: "center"	
 		}
 	},
 	
@@ -144,7 +143,7 @@ MyMap.add({
 ```
 ### Show-Hide by id
 ```js
-MyMap.show(2); // shows all markers (on or many) with id equal 2
+MyMap.show(2); // shows all markers (one or many) with id equal 2
 MyMap.hide(2); // same, but hides
 ```
 ## Development

@@ -81,6 +81,10 @@
         -ms-transform-origin: top right;
         transform-origin: top right;
       }
+      .buttons button{
+        font-size: 15px;
+        padding: 10px 20px;
+      }
 
     </style>
   </head>
@@ -88,11 +92,14 @@
 
 
   <div class="js-map map"></div>
-  <button class="js-add-one">add one marker for the example</button>
-  <button class="js-add-several">add several markers for the example</button>
+  <div class="buttons">
+    <button class="js-add-one">add one marker for the example</button>
+    <button class="js-add-several">add array of markers for the example</button>
 
-  <button class="js-show">show by id</button>
-  <button class="js-hide">hide by id</button>
+    <button class="js-show">show one marker by id</button>
+    <button class="js-hide">hide one marker by id</button>
+  </div>
+  
 
 
   <script type="text/underscorejs" id="infobox">
@@ -104,7 +111,6 @@
   </script>
 
 
-  <!--<script type="text/javascript" src="../dist/easygooglemaps.js"></script>-->
   <script type="text/javascript" src="../dist/easygooglemaps.min.js"></script>
   <script type="text/javascript" src="example.js"></script>
 
