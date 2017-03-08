@@ -1,5 +1,7 @@
 
+[![npm version](https://badge.fury.io/js/easygooglemaps.svg)](https://badge.fury.io/js/easygooglemaps)
 [![Dependency Status][depstat-image]][depstat-url]
+
 
 > <img align="right" width="120" 
      title="EasyGoogleMaps Logo"
@@ -61,6 +63,7 @@ MyMap.init();
 	},
 	
 	// Array of data (markers,baloons,infoboxes,whatever) to put on the map
+	// Might be added at any time by .add method described below
 	markers: {
 		items: [
 			{
@@ -104,20 +107,61 @@ And also HTML template ([doT template engine](http://olado.github.io/doT/index.h
 </script>
 ```
 
-
+## Methods
+### Load (callback)
+```js
+MyMap.onload(function() {
+ 	// show map with animation, once it is loaded
+});
+```
+### Add marker
+```js
+// this method also accepts array of markers
+MyMap.add({
+	"content": {
+		"title": "Lorem ipsum"
+	},
+	"marker": {
+		"id": 5, // optional, only if you need to show-hide it later
+		"position": {
+			"lat": -34.397,
+			"lng": 152.244
+		},
+		"icon": {
+			"default": "img/markerDefault.png",
+			"active": "img/markerActive.png", // optional
+			"size": {
+				"x": 41,
+				"y": 58
+			},
+			"centering": {
+				"x": 20,
+				"y": 58
+			}
+		}
+	}
+});
+```
+### Show-Hide by id
+```js
+MyMap.show(2); // shows all markers (on or many) with id equal 2
+MyMap.hide(2); // same, but hides
+```
 ## Development
 - `npm run build` - Build task that generates both minified and non-minified scripts,
 - `npm run watch` - watch changes, build only minified version;
 
 
-## License
-MIT © [Coderiver](http://riverco.de)
+
 
 ## Authors:
 Valentin ‘Whats0n’ Dorosh
 
 ## Contributors:
 Yuri [akella](http://cssing.org.ua) Artiukh
+
+## License
+MIT © [Coderiver](http://riverco.de)
 
 [depstat-url]: https://david-dm.org/coderiver/easygooglemaps
 [depstat-image]: https://david-dm.org/coderiver/easygooglemaps.svg		 
