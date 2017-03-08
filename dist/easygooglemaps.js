@@ -69,6 +69,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @name EasyGoogleMaps
 	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 
+
 	var _googleMaps = __webpack_require__(2);
 
 	var _googleMaps2 = _interopRequireDefault(_googleMaps);
