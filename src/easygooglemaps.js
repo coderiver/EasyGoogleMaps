@@ -4,7 +4,6 @@
  * Creates map with expandable markers
  * @name EasyGoogleMaps
  */
-
  import GoogleMapsLoader from 'google-maps';
  import dot from 'dot';
 

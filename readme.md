@@ -50,13 +50,14 @@ MyMap.init();
 	infobox: {
 		class: 'awesome-infobox',
 		template: '#infobox', // html template for baloon
+		closeButton: '.js-infobox-close',
 		onlyOneBox: true, // single baloon visible
 		// baloon relative to marker position
 		position: {
-			y: "center",
-			x: "left"
-		},
-		closeButton: '.js-infobox-close'
+			x: "right",
+			y: "center"
+			
+		}
 	},
 	
 	// Array of data (markers,baloons,infoboxes,whatever) to put on the map
@@ -75,7 +76,7 @@ MyMap.init();
 					"icon": {
 						"default": "img/markerDefault.png",
 						"active": "img/markerActive.png",
-						// for retina icon should be 40x60
+						// for retina icon should be 40x60 pixels
 						"size": {
 							"x": 20,
 							"y": 30
@@ -91,10 +92,11 @@ MyMap.init();
 	}
 }
 ```
-And also HTML template (doT) for infobox should be specified:
+And also HTML template ([doT template engine](http://olado.github.io/doT/index.html)) for infobox should be specified:
 ```html
 <script type="text/underscorejs" id="infobox">
-	<div class="baloon"> <button class="baloon__close js-infobox-close"></button>
+	<div class="baloon">
+		<button class="baloon__close js-infobox-close"></button>
 		<div className="baloon__content">
 			{{=baloon.title}}
 		</div>
@@ -104,13 +106,16 @@ And also HTML template (doT) for infobox should be specified:
 
 
 ## Development
-- `npm run build` - Build task that generates both minified and non-minified scripts;
+- `npm run build` - Build task that generates both minified and non-minified scripts,
+- `npm run watch` - watch changes, build only minified version;
 
 
 ## License
 MIT © [Coderiver](http://riverco.de)
+
 ## Authors:
 Valentin ‘Whats0n’ Dorosh
+
 ## Contributors:
 Yuri [akella](http://cssing.org.ua) Artiukh
 
