@@ -83,6 +83,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = function () {
 
+	  var INFOBOX = null;
+
 	  var utils = {
 	    checkPropsString: function checkPropsString(props) {
 	      return typeof props == 'string' && props.length;
@@ -109,10 +111,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _googleMaps2.default.load(function (google) {
 
 	          !/* require */(/* min-size */function() { /* WEBPACK VAR INJECTION */(function(console) {var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(5)]; (function (InfoBox) {
+	            INFOBOX = InfoBox;
 	            that._initMap();
 	            //if you want to get info from some another file using ajax
-	            //you need turn on 'ajax' by flag in settings => ajax: true
-	            //and you need path to file
+	            //you need set url to your file
 	            if (!!!props.markers) return;
 	            if (_typeof(props.markers) != 'object') return console.error('Data must be an object!!!');
 	            if (!Object.keys(props.markers).length) return console.error('Data must be a non-empty object!!!');
@@ -121,12 +123,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	              if (!utils.checkPropsString(props.markers) && utils.checkPropsString(props.markers.url)) {
 	                that._loadData(function (items) {
 	                  var infobox = utils.checkPropsString(props.infobox.template) ? that._getTemplate() : null;
-	                  that._addItems(items, infobox, InfoBox);
+	                  that._addItems(items, infobox);
 	                });
 	              }
 	            } else if (!props.markers.url) {
 	              var infobox = utils.checkPropsString(props.infobox.template) ? that._getTemplate() : null;
-	              that._addItems(props.markers.items, infobox, InfoBox);
+	              that._addItems(props.markers.items, infobox);
 	            }
 	          }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));
 	/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1)))}());
@@ -168,7 +170,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    }, {
 	      key: '_addItems',
-	      value: function _addItems(items, infobox, InfoBox) {
+	      value: function _addItems(items, infobox) {
 	        var _this = this;
 
 	        var _loop = function _loop(i) {
@@ -181,7 +183,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          if (infobox && _this._props.infobox) {
 	            var content = items[i].content;
 	            var compiled = infobox(content);
-	            var ib = _this._createInfoBox(compiled, marker, InfoBox);
+	            var ib = _this._createInfoBox(compiled, marker);
 
 	            _this._infoboxes.push(ib);
 	            //toggle content on click
@@ -327,7 +329,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    }, {
 	      key: '_createInfoBox',
-	      value: function _createInfoBox(content, marker, InfoBox) {
+	      value: function _createInfoBox(content, marker) {
 	        var props = this._props.infobox;
 
 	        var style = props.style || {};
@@ -339,7 +341,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        this._offsetX = markerSize.x;
 	        this._offsetY = markerSize.y;
 
-	        return new InfoBox({
+	        return new INFOBOX({
 	          content: content,
 
 	          enableEventPropagation: false,

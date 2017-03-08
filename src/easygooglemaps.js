@@ -11,6 +11,8 @@
 
  export default (function() {
 
+ 	let INFOBOX = null;
+
  	const utils = {
  		checkPropsString(props) {
  			return (typeof props == 'string' && props.length);
@@ -29,15 +31,15 @@
  		init() {
  			let props = this._props;
  			let that = this;
- 			
+
  			GoogleMapsLoader.KEY = props.map.APIKEY;
  			GoogleMapsLoader.load(function(google) {
- 				
+
  				require(["google-maps-infobox"], function(InfoBox) {
+ 					INFOBOX = InfoBox;
  				  	that._initMap();
 					//if you want to get info from some another file using ajax
-					//you need turn on 'ajax' by flag in settings => ajax: true
-					//and you need path to file
+					//you need set url to your file
 					if (!!!props.markers) return;
 					if (typeof props.markers != 'object') return console.error('Data must be an object!!!');
 					if (!Object.keys(props.markers).length) return console.error('Data must be a non-empty object!!!');
@@ -48,17 +50,17 @@
 								let infobox = utils.checkPropsString(props.infobox.template)
 									? that._getTemplate()
 									: null;
-								that._addItems(items, infobox,InfoBox);
+								that._addItems(items, infobox);
 							});
 						}
 					} else if (!props.markers.url) {
 						let infobox = utils.checkPropsString(props.infobox.template)
 							? that._getTemplate()
 							: null;
-						that._addItems(props.markers.items, infobox,InfoBox);
+						that._addItems(props.markers.items, infobox);
 					}
  				});
- 				
+
  			});
  		}
 
@@ -93,7 +95,7 @@
  		//*****************ALL ITEMS*****************
  		//*******************************************
 
- 		_addItems(items, infobox,InfoBox) {
+ 		_addItems(items, infobox) {
  			for (let i = 0; i < items.length; i++) {
 
  				let markerOptions = items[i].marker;
@@ -104,7 +106,7 @@
  				if (infobox && this._props.infobox) {
  					let content = items[i].content;
  					let compiled = infobox(content);
- 					let ib = this._createInfoBox(compiled, marker,InfoBox);
+ 					let ib = this._createInfoBox(compiled, marker);
 
  					this._infoboxes.push(ib);
  					//toggle content on click
@@ -220,7 +222,7 @@
  		//******************INFOBOX******************
  		//*******************************************
 
- 		_createInfoBox(content, marker, InfoBox) {
+ 		_createInfoBox(content, marker) {
  			let props = this._props.infobox;
 
  			let style = props.style || {};
@@ -232,7 +234,7 @@
  			this._offsetX = markerSize.x;
  			this._offsetY = markerSize.y;
 
- 			return new InfoBox({
+ 			return new INFOBOX({
  				content: content,
 
  				enableEventPropagation: false,
