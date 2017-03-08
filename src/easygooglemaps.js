@@ -12,10 +12,20 @@
  export default (function() {
 
  	let INFOBOX = null;
+ 	let template = null;
 
  	const utils = {
- 		checkPropsString(props) {
+ 		isString(props) {
  			return (typeof props == 'string' && props.length);
+ 		},
+ 		isObj(props) {
+ 			return (props != null && !Array.isArray(props) && typeof props == 'object');
+ 		},
+ 		isArr(props) {
+ 			return Array.isArray(props);
+ 		},
+ 		isFunc(fn) {
+ 			return typeof fn == 'function';
  		}
  	};
 
@@ -25,49 +35,113 @@
  			this._props = props || {};
  			this._markers = [];
  			this._infoboxes = [];
+ 			this._onLoad = [];
+ 			this._isLoaded = false;
+ 			this._temporaryStorage = [];
  			this._defaultWidth = '300px';
  		}
 
+ 		//*******************************************
+ 		//******************PUBLIC*******************
+ 		//*******************************************
+
  		init() {
  			let props = this._props;
- 			let that = this;
 
  			GoogleMapsLoader.KEY = props.map.APIKEY;
- 			GoogleMapsLoader.load(function(google) {
+ 			GoogleMapsLoader.load((google) => {
 
- 				require(["google-maps-infobox"], function(InfoBox) {
+ 				require(["google-maps-infobox"], (InfoBox) => {
+ 					//set value to the global infobox variable
  					INFOBOX = InfoBox;
- 				  	that._initMap();
-					//if you want to get info from some another file using ajax
-					//you need set url to your file
+ 				  	this._initMap();
+
+					//flag to know when the map and the infobox are loaded
+					this._isLoaded = true;
+
+					template = utils.isString(props.infobox.template)
+						? this._getTemplate()
+						: null;
+
+					//call onLoadCallbacks
+					if (this._onLoad.length) this._onLoad.forEach(callback => callback());
+					//add markers by method if method was called when map is not loaded
+					this._addItems(this._temporaryStorage);
+					this._temporaryStorage = [];
+					this._closeOnMapClick();
+
+					//check for morons...
 					if (!!!props.markers) return;
-					if (typeof props.markers != 'object') return console.error('Data must be an object!!!');
+					if (!utils.isObj(props.markers)) return console.error('Data must be an object!!!');
 					if (!Object.keys(props.markers).length) return console.error('Data must be a non-empty object!!!');
 
-					if (props.markers.url) {
-						if (!utils.checkPropsString(props.markers) && utils.checkPropsString(props.markers.url)) {
-							that._loadData((items) => {
-								let infobox = utils.checkPropsString(props.infobox.template)
-									? that._getTemplate()
-									: null;
-								that._addItems(items, infobox);
+					//If you want to get info from some another file using ajax,
+					//you need set path to the file to property 'url'.
+					if (props.markers && props.markers.url) {
+						if (!utils.isString(props.markers) && utils.isString(props.markers.url)) {
+							this._loadData((items) => {
+								this._addItems(items);
 							});
 						}
-					} else if (!props.markers.url) {
-						let infobox = utils.checkPropsString(props.infobox.template)
-							? that._getTemplate()
-							: null;
-						that._addItems(props.markers.items, infobox);
+					} else if (props.markers && !props.markers.url) {
+						this._addItems(props.markers.items);
 					}
  				});
 
  			});
  		}
 
+ 		onload(callback) {
+ 			if (!utils.isFunc(callback)) return;
+			this._onLoad.push(callback);
+ 		}
+
+		//ADD MARKERS
+ 		add(props) {
+ 			if (utils.isObj(props)) {
+				if (!this._isLoaded) {
+					this._temporaryStorage.push(props);
+					return;
+				};
+
+ 				this._addItem(props);
+ 				return;
+ 			}
+
+ 			if (utils.isArr(props)) {
+				if (!this._isLoaded) {
+					this._temporaryStorage = this._temporaryStorage.concat(props);
+					return;
+				};
+
+ 				this._addItems(props);
+				return;
+ 			}
+ 		}
+ 		//SHOW MARKER BY ID
+ 		show(id) {
+ 			let currentID = id;
+ 			this._markers.forEach(marker => {
+	 			if (!currentID || currentID && marker.id == currentID) return marker.setMap(this._map);
+ 			});
+ 		}
+		//HIDE MARKER BY ID
+ 		hide(id) {
+ 			let currentID = id;
+ 			this._markers.forEach(marker => {
+	 			if (!currentID || currentID && marker.id == currentID) return marker.setMap(null);
+ 			});
+ 		}
+
+ 		//*******************************************
+ 		//******************PRIVAT*******************
+ 		//*******************************************
+
  		_initMap() {
  			let props = this._props;
  			this._container = document.querySelector(props.map.container);
  			this._map = new google.maps.Map(this._container, props.map.options);
+ 			this.realmap = this._map;
  		}
 
  		_loadData(callback) {
@@ -90,32 +164,35 @@
  			return dot.template(HTML);
  		}
 
-
  		//*******************************************
  		//*****************ALL ITEMS*****************
  		//*******************************************
 
- 		_addItems(items, infobox) {
+ 		_addItems(items) {
  			for (let i = 0; i < items.length; i++) {
-
- 				let markerOptions = items[i].marker;
- 				let marker = this._createMarker(markerOptions);
-
- 				this._markers.push(marker);
-
- 				if (infobox && this._props.infobox) {
- 					let content = items[i].content;
- 					let compiled = infobox(content);
- 					let ib = this._createInfoBox(compiled, marker);
-
- 					this._infoboxes.push(ib);
- 					//toggle content on click
- 					google.maps.event.addListener(marker, 'click', e => this._toggleInfobox(ib, marker));
- 					google.maps.event.addListener(ib, 'domready', e => this._addEventOnCloseButton(ib, marker));
- 				}
-
+ 				this._addItem(items[i]);
  			}
+ 		}
 
+ 		_addItem(item) {
+ 			let markerOptions = item.marker;
+ 			let marker = this._createMarker(markerOptions);
+
+ 			this._markers.push(marker);
+
+ 			if (template && this._props.infobox) {
+ 				let content = item.content;
+ 				let compiled = template(content);
+ 				let ib = this._createInfoBox(compiled, marker);
+
+ 				this._infoboxes.push(ib);
+ 				//toggle content on click
+ 				google.maps.event.addListener(marker, 'click', e => this._toggleInfobox(ib, marker));
+ 				google.maps.event.addListener(ib, 'domready', e => this._addEventOnCloseButton(ib, marker));
+ 			}
+ 		}
+
+ 		_closeOnMapClick() {
  			if (!this._props.infobox.onlyOneBox) return;
  			google.maps.event.addListener(this._map, 'click', e => {
  				this._closeAllInfobox();
@@ -196,7 +273,8 @@
  				defaultIcon: data.icon.default || '',
  				activeIcon: data.icon.active || '',
  				iconSize: size,
- 				iconStyles: iconStyles
+ 				iconStyles: iconStyles,
+ 				id: data.id
  			});
 
  			if (icon.default) marker.setIcon(iconStyles);

@@ -60,14 +60,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * EasyGoogleMaps
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Description
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Creates map with expandable markers
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @name EasyGoogleMaps
-	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; /**
+	                                                                                                                                                                                                                                                                               * EasyGoogleMaps
+	                                                                                                                                                                                                                                                                               * Description
+	                                                                                                                                                                                                                                                                               * Creates map with expandable markers
+	                                                                                                                                                                                                                                                                               * @name EasyGoogleMaps
+	                                                                                                                                                                                                                                                                               */
 
 	var _googleMaps = __webpack_require__(2);
 
@@ -84,10 +84,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.default = function () {
 
 	  var INFOBOX = null;
+	  var template = null;
 
 	  var utils = {
-	    checkPropsString: function checkPropsString(props) {
+	    isString: function isString(props) {
 	      return typeof props == 'string' && props.length;
+	    },
+	    isObj: function isObj(props) {
+	      return props != null && !Array.isArray(props) && (typeof props === 'undefined' ? 'undefined' : _typeof(props)) == 'object';
+	    },
+	    isArr: function isArr(props) {
+	      return Array.isArray(props);
+	    },
+	    isFunc: function isFunc(fn) {
+	      return typeof fn == 'function';
 	    }
 	  };
 
@@ -98,48 +108,131 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this._props = props || {};
 	      this._markers = [];
 	      this._infoboxes = [];
+	      this._onLoad = [];
+	      this._isLoaded = false;
+	      this._temporaryStorage = [];
 	      this._defaultWidth = '300px';
 	    }
+
+	    //*******************************************
+	    //******************PUBLIC*******************
+	    //*******************************************
 
 	    _createClass(Map, [{
 	      key: 'init',
 	      value: function init() {
+	        var _this = this;
+
 	        var props = this._props;
-	        var that = this;
 
 	        _googleMaps2.default.KEY = props.map.APIKEY;
 	        _googleMaps2.default.load(function (google) {
 
 	          !/* require */(/* min-size */function() { /* WEBPACK VAR INJECTION */(function(console) {var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(5)]; (function (InfoBox) {
+	            //set value to the global infobox variable
 	            INFOBOX = InfoBox;
-	            that._initMap();
-	            //if you want to get info from some another file using ajax
-	            //you need set url to your file
+	            _this._initMap();
+
+	            //flag to know when the map and the infobox are loaded
+	            _this._isLoaded = true;
+
+	            template = utils.isString(props.infobox.template) ? _this._getTemplate() : null;
+
+	            //call onLoadCallbacks
+	            if (_this._onLoad.length) _this._onLoad.forEach(function (callback) {
+	              return callback();
+	            });
+	            //add markers by method if method was called when map is not loaded
+	            _this._addItems(_this._temporaryStorage);
+	            _this._temporaryStorage = [];
+	            _this._closeOnMapClick();
+
+	            //check for morons...
 	            if (!!!props.markers) return;
-	            if (_typeof(props.markers) != 'object') return console.error('Data must be an object!!!');
+	            if (!utils.isObj(props.markers)) return console.error('Data must be an object!!!');
 	            if (!Object.keys(props.markers).length) return console.error('Data must be a non-empty object!!!');
 
-	            if (props.markers.url) {
-	              if (!utils.checkPropsString(props.markers) && utils.checkPropsString(props.markers.url)) {
-	                that._loadData(function (items) {
-	                  var infobox = utils.checkPropsString(props.infobox.template) ? that._getTemplate() : null;
-	                  that._addItems(items, infobox);
+	            //If you want to get info from some another file using ajax,
+	            //you need set path to the file to property 'url'.
+	            if (props.markers && props.markers.url) {
+	              if (!utils.isString(props.markers) && utils.isString(props.markers.url)) {
+	                _this._loadData(function (items) {
+	                  _this._addItems(items);
 	                });
 	              }
-	            } else if (!props.markers.url) {
-	              var infobox = utils.checkPropsString(props.infobox.template) ? that._getTemplate() : null;
-	              that._addItems(props.markers.items, infobox);
+	            } else if (props.markers && !props.markers.url) {
+	              _this._addItems(props.markers.items);
 	            }
 	          }.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));
 	/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(1)))}());
 	        });
 	      }
 	    }, {
+	      key: 'onload',
+	      value: function onload(callback) {
+	        if (!utils.isFunc(callback)) return;
+	        this._onLoad.push(callback);
+	      }
+
+	      //ADD MARKERS
+
+	    }, {
+	      key: 'add',
+	      value: function add(props) {
+	        if (utils.isObj(props)) {
+	          if (!this._isLoaded) {
+	            this._temporaryStorage.push(props);
+	            return;
+	          };
+
+	          this._addItem(props);
+	          return;
+	        }
+
+	        if (utils.isArr(props)) {
+	          if (!this._isLoaded) {
+	            this._temporaryStorage = this._temporaryStorage.concat(props);
+	            return;
+	          };
+
+	          this._addItems(props);
+	          return;
+	        }
+	      }
+	      //SHOW MARKER BY ID
+
+	    }, {
+	      key: 'show',
+	      value: function show(id) {
+	        var _this2 = this;
+
+	        var currentID = id;
+	        this._markers.forEach(function (marker) {
+	          if (!currentID || currentID && marker.id == currentID) return marker.setMap(_this2._map);
+	        });
+	      }
+	      //HIDE MARKER BY ID
+
+	    }, {
+	      key: 'hide',
+	      value: function hide(id) {
+	        var currentID = id;
+	        this._markers.forEach(function (marker) {
+	          if (!currentID || currentID && marker.id == currentID) return marker.setMap(null);
+	        });
+	      }
+
+	      //*******************************************
+	      //******************PRIVAT*******************
+	      //*******************************************
+
+	    }, {
 	      key: '_initMap',
 	      value: function _initMap() {
 	        var props = this._props;
 	        this._container = document.querySelector(props.map.container);
 	        this._map = new google.maps.Map(this._container, props.map.options);
+	        this.realmap = this._map;
 	      }
 	    }, {
 	      key: '_loadData',
@@ -170,45 +263,50 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    }, {
 	      key: '_addItems',
-	      value: function _addItems(items, infobox) {
-	        var _this = this;
-
-	        var _loop = function _loop(i) {
-
-	          var markerOptions = items[i].marker;
-	          var marker = _this._createMarker(markerOptions);
-
-	          _this._markers.push(marker);
-
-	          if (infobox && _this._props.infobox) {
-	            var content = items[i].content;
-	            var compiled = infobox(content);
-	            var ib = _this._createInfoBox(compiled, marker);
-
-	            _this._infoboxes.push(ib);
-	            //toggle content on click
-	            google.maps.event.addListener(marker, 'click', function (e) {
-	              return _this._toggleInfobox(ib, marker);
-	            });
-	            google.maps.event.addListener(ib, 'domready', function (e) {
-	              return _this._addEventOnCloseButton(ib, marker);
-	            });
-	          }
-	        };
-
+	      value: function _addItems(items) {
 	        for (var i = 0; i < items.length; i++) {
-	          _loop(i);
+	          this._addItem(items[i]);
 	        }
+	      }
+	    }, {
+	      key: '_addItem',
+	      value: function _addItem(item) {
+	        var _this3 = this;
+
+	        var markerOptions = item.marker;
+	        var marker = this._createMarker(markerOptions);
+
+	        this._markers.push(marker);
+
+	        if (template && this._props.infobox) {
+	          var content = item.content;
+	          var compiled = template(content);
+	          var ib = this._createInfoBox(compiled, marker);
+
+	          this._infoboxes.push(ib);
+	          //toggle content on click
+	          google.maps.event.addListener(marker, 'click', function (e) {
+	            return _this3._toggleInfobox(ib, marker);
+	          });
+	          google.maps.event.addListener(ib, 'domready', function (e) {
+	            return _this3._addEventOnCloseButton(ib, marker);
+	          });
+	        }
+	      }
+	    }, {
+	      key: '_closeOnMapClick',
+	      value: function _closeOnMapClick() {
+	        var _this4 = this;
 
 	        if (!this._props.infobox.onlyOneBox) return;
 	        google.maps.event.addListener(this._map, 'click', function (e) {
-	          _this._closeAllInfobox();
+	          _this4._closeAllInfobox();
 	        });
 	      }
 	    }, {
 	      key: '_addEventOnCloseButton',
 	      value: function _addEventOnCloseButton(ib, marker) {
-	        var _this2 = this;
+	        var _this5 = this;
 
 	        var props = this._props;
 	        var infobox = ib.div_;
@@ -219,8 +317,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        Array.prototype.forEach.call(buttons, function (button) {
 	          button.addEventListener('click', function (e) {
 	            e.preventDefault();
-	            _this2._closeInfobox(ib);
-	            _this2._closeMarker(marker);
+	            _this5._closeInfobox(ib);
+	            _this5._closeMarker(marker);
 	          }, false);
 	        });
 	      }
@@ -232,10 +330,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	      key: '_closeAllInfobox',
 	      value: function _closeAllInfobox() {
-	        var _this3 = this;
+	        var _this6 = this;
 
 	        this._infoboxes.forEach(function (infobox) {
-	          return _this3._closeInfobox(infobox);
+	          return _this6._closeInfobox(infobox);
 	        });
 	        this._closeMarkers();
 	      }
@@ -294,7 +392,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	          defaultIcon: data.icon.default || '',
 	          activeIcon: data.icon.active || '',
 	          iconSize: size,
-	          iconStyles: iconStyles
+	          iconStyles: iconStyles,
+	          id: data.id
 	        });
 
 	        if (icon.default) marker.setIcon(iconStyles);
@@ -304,10 +403,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }, {
 	      key: '_closeMarkers',
 	      value: function _closeMarkers() {
-	        var _this4 = this;
+	        var _this7 = this;
 
 	        this._markers.forEach(function (marker) {
-	          return _this4._closeMarker(marker);
+	          return _this7._closeMarker(marker);
 	        });
 	      }
 	    }, {

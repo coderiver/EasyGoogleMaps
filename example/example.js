@@ -22,7 +22,7 @@ let map = new EasyGoogleMaps({
 		},
 		closeButton: '.js-infobox-close'
 	},
-	
+
 	markers: {
 		items: [
 			{
@@ -30,6 +30,7 @@ let map = new EasyGoogleMaps({
 					"title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, consequatur."
 				},
 				"marker": {
+					"id": 0,
 					"position": {
 						"lat": -34.397,
 						"lng": 150.644
@@ -53,6 +54,7 @@ let map = new EasyGoogleMaps({
 					"title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, consequatur."
 				},
 				"marker": {
+					"id": 1,
 					"position": {
 						"lat": -34.397,
 						"lng": 150.244
@@ -76,3 +78,177 @@ let map = new EasyGoogleMaps({
 });
 
 map.init();
+
+map.add([
+	{
+		"content": {
+			"title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, consequatur."
+		},
+		"marker": {
+			"id": 2,
+			"position": {
+				"lat": -34.397,
+				"lng": 151.044
+			},
+			"icon": {
+				"default": "img/markerDefault.png",
+				"active": "img/markerActive.png",
+				"size": {
+					"x": 41,
+					"y": 58
+				},
+				"centering": {
+					"x": 20,
+					"y": 58
+				}
+			}
+		}
+	},
+	{
+		"content": {
+			"title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, consequatur."
+		},
+		"marker": {
+			"id": 3,
+			"position": {
+				"lat": -34.397,
+				"lng": 151.444
+			},
+			"icon": {
+				"default": "img/markerDefault.png",
+				"active": "img/markerActive.png",
+				"size": {
+					"x": 41,
+					"y": 58
+				},
+				"centering": {
+					"x": 20,
+					"y": 58
+				}
+			}
+		}
+	}
+]);
+
+map.add({
+	"content": {
+		"title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, consequatur."
+	},
+	"marker": {
+		"id": 4,
+		"position": {
+			"lat": -34.397,
+			"lng": 151.844
+		},
+		"icon": {
+			"default": "img/markerDefault.png",
+			"active": "img/markerActive.png",
+			"size": {
+				"x": 41,
+				"y": 58
+			},
+			"centering": {
+				"x": 20,
+				"y": 58
+			}
+		}
+	}
+});
+
+let addOneMarker = document.querySelector('.js-add-one');
+let addSeveralMarker = document.querySelector('.js-add-several');
+
+let showMarker = document.querySelector('.js-show');
+let hideMarker = document.querySelector('.js-hide');
+
+addOneMarker.addEventListener('click', () => {
+	map.add({
+		"content": {
+			"title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, consequatur."
+		},
+		"marker": {
+			"id": 5,
+			"position": {
+				"lat": -34.397,
+				"lng": 152.244
+			},
+			"icon": {
+				"default": "img/markerDefault.png",
+				"active": "img/markerActive.png",
+				"size": {
+					"x": 41,
+					"y": 58
+				},
+				"centering": {
+					"x": 20,
+					"y": 58
+				}
+			}
+		}
+	});
+}, false);
+addSeveralMarker.addEventListener('click', () => {
+	map.add([
+		{
+			"content": {
+				"title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, consequatur."
+			},
+			"marker": {
+				"id": 6,
+				"position": {
+					"lat": -34.397,
+					"lng": 152.644
+				},
+				"icon": {
+					"default": "img/markerDefault.png",
+					"active": "img/markerActive.png",
+					"size": {
+						"x": 41,
+						"y": 58
+					},
+					"centering": {
+						"x": 20,
+						"y": 58
+					}
+				}
+			}
+		},
+		{
+			"content": {
+				"title": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, consequatur."
+			},
+			"marker": {
+				"id": 7,
+				"position": {
+					"lat": -34.397,
+					"lng": 153.044
+				},
+				"icon": {
+					"default": "img/markerDefault.png",
+					"active": "img/markerActive.png",
+					"size": {
+						"x": 41,
+						"y": 58
+					},
+					"centering": {
+						"x": 20,
+						"y": 58
+					}
+				}
+			}
+		}
+	]);
+}, false);
+
+showMarker.addEventListener('click', () => {
+	map.show(2);
+}, false);
+
+hideMarker.addEventListener('click', () => {
+	map.hide(2);
+}, false);
+
+// map.onload(() => {
+// 	alert('loaded');
+// });
+// alert('not loaded');
