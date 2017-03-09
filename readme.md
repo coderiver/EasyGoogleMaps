@@ -158,6 +158,7 @@ MyMap.realmap; // returns Google Maps map object
 
 ## Authors:
 Valentin ‘Whats0n’ Dorosh
+
 Yuri [akella](http://cssing.org.ua) Artiukh
 
 ## License
