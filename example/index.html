@@ -92,6 +92,7 @@
 
 
   <div class="js-map map"></div>
+
   <div class="buttons">
     <button class="js-add-one">add one marker for the example</button>
     <button class="js-add-several">add array of markers for the example</button>
@@ -102,8 +103,9 @@
   
 
 
-  <script type="text/underscorejs" id="infobox">
-    <div class="baloon"> <button class="baloon__close js-infobox-close"></button>
+  <script type="text/template" id="infobox">
+    <div class="baloon"> 
+      <button class="baloon__close js-infobox-close"></button>
       <div className="baloon__content">
         {{=baloon.title}}
       </div>

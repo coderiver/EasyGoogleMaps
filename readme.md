@@ -96,7 +96,7 @@ MyMap.init();
 ```
 And also HTML template ([doT template engine](http://olado.github.io/doT/index.html)) for infobox should be specified:
 ```html
-<script type="text/underscorejs" id="infobox">
+<script type="text/template" id="infobox">
 	<div class="baloon">
 		<button class="baloon__close js-infobox-close"></button>
 		<div className="baloon__content">
