@@ -147,7 +147,7 @@ MyMap.show(2); // shows all markers (one or many) with id equal 2
 MyMap.hide(2); // same, but hides
 ```
 ### Google Map Object
-Though our scripts wrap most of the use cases with map and infoboxes. You can still do whatever you want, because you have access to original Google Maps API:
+Though our script wraps most of the use cases with map and infoboxes. You can still do whatever you want, because you have access to original Google Maps API:
 ```js
 MyMap.realmap; // returns Google Maps map object
 ```
@@ -156,12 +156,8 @@ MyMap.realmap; // returns Google Maps map object
 - `npm run watch` - watch changes, build only minified version;
 
 
-
-
 ## Authors:
 Valentin ‘Whats0n’ Dorosh
-
-## Contributors:
 Yuri [akella](http://cssing.org.ua) Artiukh
 
 ## License
