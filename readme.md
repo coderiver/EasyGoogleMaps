@@ -151,6 +151,12 @@ Though our script wraps most of the use cases with map and infoboxes. You can st
 ```js
 MyMap.realmap; // returns Google Maps map object
 ```
+For MyMap.realmap; to work you need to call it inside of:
+ ```js
+MyMap.onload(function() {
+ 	// MyMap.realmap will be undefined if you don't call it inside of this function. 
+});
+```
 ## Development
 - `npm run build` - Build task that generates both minified and non-minified scripts,
 - `npm run watch` - watch changes, build only minified version;
